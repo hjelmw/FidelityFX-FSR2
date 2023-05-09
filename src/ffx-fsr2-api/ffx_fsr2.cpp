@@ -876,8 +876,8 @@ static FfxErrorCode fsr2Dispatch(FfxFsr2Context_Private* context, const FfxFsr2D
     context->constants.renderSize[1] = int32_t(params->renderSize.height ? params->renderSize.height : resourceDescInputColor.height);
     context->constants.maxRenderSize[0] = int32_t(context->contextDescription.maxRenderSize.width);
     context->constants.maxRenderSize[1] = int32_t(context->contextDescription.maxRenderSize.height);
-    context->constants.inputColorResourceDimensions[0] = resourceDescInputColor.width;
-    context->constants.inputColorResourceDimensions[1] = resourceDescInputColor.height;
+    context->constants.inputColorResourceDimensions[0] = context->contextDescription.flags & FFX_FSR2_ENABLE_DYNAMIC_RESOLUTION ? params->renderSize.width  : resourceDescInputColor.width;
+    context->constants.inputColorResourceDimensions[1] = context->contextDescription.flags & FFX_FSR2_ENABLE_DYNAMIC_RESOLUTION ? params->renderSize.height : resourceDescInputColor.height;
 
     // compute the horizontal FOV for the shader from the vertical one.
     const float aspectRatio = (float)params->renderSize.width / (float)params->renderSize.height;
